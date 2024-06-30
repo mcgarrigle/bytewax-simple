@@ -14,12 +14,10 @@
 # limitations under the License.
 
 ---
-version: '2'
 services:
   broker:
     image: ${KAFKA_IMAGE}
     hostname: broker
-    container_name: broker
     ports:
       - '9092:9092'
     environment:

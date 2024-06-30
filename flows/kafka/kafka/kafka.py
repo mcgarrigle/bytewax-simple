@@ -1,20 +1,17 @@
 import time
 
 import bytewax.operators as op
+from bytewax.connectors.kafka import operators as kop
 from bytewax.connectors.stdio import StdOutSink
 from bytewax.dataflow import Dataflow
-from bytewax.testing import TestingSource
 
-flow = Dataflow("a_simple_example")
+flow = Dataflow("kafka-example")
 
-stream = op.input("input", flow, TestingSource(range(10)))
+brokers = ["kafka:9092"]
 
+# stream = op.input("kafka-in", flow, KafkaSource(brokers, ["raw"]))
+stream = kop.input("kafka-in", flow, brokers=brokers, topics=["raw"])
+# double = op.map("double", stream, times_two)
+out = op.map("map", stream.oks, lambda x: x)
 
-def times_two(inp: int) -> int:
-    time.sleep(1)
-    return inp * 2
-
-
-double = op.map("double", stream, times_two)
-
-op.output("out", double, StdOutSink())
+op.output("out", out, StdOutSink())

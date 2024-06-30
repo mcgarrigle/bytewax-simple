@@ -4,7 +4,7 @@ FROM python:3.11-slim-bullseye
 WORKDIR /home
 # Install bytewax and the dependencies you need here
 # RUN pip install bytewax==0.18.0
-RUN pip install bytewax==0.20.1
+RUN pip install bytewax==0.20.1 confluent_kafka
 # Set PYTHONUNBUFFERED to any value to make python flush stdout,
 # or you risk not seeing any output from your python scripts.
 ENV PYTHONUNBUFFERED 1
