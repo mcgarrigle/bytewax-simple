@@ -1,17 +1,14 @@
-import time
-
+from bytewax.dataflow import Dataflow
 import bytewax.operators as op
 from bytewax.connectors.kafka import operators as kop
 from bytewax.connectors.stdio import StdOutSink
-from bytewax.dataflow import Dataflow
+
+import confluent_kafka
 
 flow = Dataflow("kafka-example")
-
 brokers = ["broker:19092"]
 
-# stream = op.input("kafka-in", flow, KafkaSource(brokers, ["raw"]))
-stream = kop.input("kafka-in", flow, brokers=brokers, topics=["raw"])
-# double = op.map("double", stream, times_two)
-out = op.map("map", stream.oks, lambda x: x)
+stream = kop.input("kafka-in", flow, brokers=brokers, topics=["raw"], starting_offset=confluent_kafka.OFFSET_END)
+processed = op.map("map", stream.oks, lambda x: x.value.decode("utf-8"))
 
-op.output("out", out, StdOutSink())
+op.output("out", processed, StdOutSink())
