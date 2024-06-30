@@ -20,6 +20,7 @@ services:
     hostname: broker
     ports:
       - '9092:9092'
+      - '19092:19092'
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'

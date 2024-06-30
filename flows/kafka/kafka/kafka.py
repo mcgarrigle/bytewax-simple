@@ -7,7 +7,7 @@ from bytewax.dataflow import Dataflow
 
 flow = Dataflow("kafka-example")
 
-brokers = ["kafka:9092"]
+brokers = ["broker:19092"]
 
 # stream = op.input("kafka-in", flow, KafkaSource(brokers, ["raw"]))
 stream = kop.input("kafka-in", flow, brokers=brokers, topics=["raw"])

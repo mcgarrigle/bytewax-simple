@@ -14,5 +14,9 @@ docker exec -it kafka-broker-1 bash
 ```
 ## Run FLow
 ```
-docker run -it -v $PWD:/home bytewax:0.20.1 python -m bytewax.run kafka/kafka.py
+docker run -it -v $PWD:/home --add-host broker:192.168.1.239 bytewax:0.20.1 python -m bytewax.run kafka/kafka.py
+
+# producer
+
+/opt/kafka/bin/kafka-console-producer.sh --bootstrap-server broker:19092 --topic raw
 ```
