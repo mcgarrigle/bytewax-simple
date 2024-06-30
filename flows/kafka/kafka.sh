@@ -4,11 +4,7 @@
 # /opt/kafka/bin/kafka-console-producer.sh --bootstrap-server broker:19092 --topic raw
 
 function run {
-  docker exec -it kafka-broker-1 $@
-}
-
-function kafka {
-  run /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server ${KAFKA_BOOTSTRAP} --topic raw
+  docker exec -i kafka-broker-1 $@
 }
 
 # kafka.sh consumer --topic raw --from-beginning
