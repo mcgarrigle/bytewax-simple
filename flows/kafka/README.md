@@ -13,6 +13,7 @@ docker compose -f kafka.compose.yml up -d
 ```
 docker exec -it kafka-broker-1 bash
 /opt/kafka/bin/kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --create --topic raw
+/opt/kafka/bin/kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --create --topic normalised
 
 ```
 ## Run FLow
