@@ -1,5 +1,4 @@
 import re
-import json
 
 def recognise(s):
     t = s.split(' ')
@@ -10,7 +9,7 @@ def normalise(event):
     match = re.match(pattern, event)
     if match:
         timestamp, hostname, process, message = match.groups()
-        rec = { "timestamp": timestamp, "hostname": hostname, "process": process, "message": message }
-        return json.dumps(rec)
+        event = { "timestamp": timestamp, "_type": "syslog.system", "hostname": hostname, "process": process, "message": message }
+        return event
     else:
         return None

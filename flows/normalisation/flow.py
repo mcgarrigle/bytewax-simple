@@ -1,5 +1,6 @@
 import os
 import confluent_kafka
+import json
 
 from bytewax.dataflow import Dataflow
 from bytewax.connectors.kafka import KafkaSource, KafkaSink, SerializedKafkaSinkMessage
@@ -21,7 +22,7 @@ systems   = op.filter("filter_systems", events, system.recognise)
 logins_n  = op.map("normalise_logins", logins, login.normalise)
 systems_n = op.map("normalise_systems", systems, system.normalise)
 combined  = op.merge("merge", logins_n, systems_n)
-out       = op.map("message", combined, lambda x: SerializedKafkaSinkMessage(key=None, value=x))
+out       = op.map("message", combined, lambda x: SerializedKafkaSinkMessage(key=None, value=json.dumps(x)))
 
 op.inspect("debug", out)
 
