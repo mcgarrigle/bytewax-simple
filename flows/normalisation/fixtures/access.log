@@ -1,4 +1,6 @@
-2024-06-30T09:28:16 login user pete login denied
-2024-06-30T09:28:17 login user pete login denied
-2024-06-30T09:28:18 login user pete login allowed
-2024-06-30T09:28:19 login user pete logged out
+2024-06-30T09:28:16 server1 login user pete login denied
+2024-06-30T09:28:17 server1 system remote ip 10.0.0.1 port 80 scanned
+2024-06-30T09:28:17 server1 login user pete login denied
+2024-06-30T09:28:18 server1 login user pete login allowed
+2024-06-30T09:28:17 server1 system remote ip 10.0.0.2 port 8080 scanned
+2024-06-30T09:28:19 server1 login user pete logged out
