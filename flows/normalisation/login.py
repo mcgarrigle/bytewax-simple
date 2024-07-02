@@ -1,6 +1,10 @@
 import re
 import json
 
+def is_login(s):
+    t = s.split(' ')
+    return t[2] == "login"
+
 def normalise_login(event):
     pattern = r'(.{19}) (\w+) (\w+) (.+)'
     match = re.match(pattern, event)
