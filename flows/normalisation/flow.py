@@ -5,7 +5,8 @@ from bytewax.dataflow import Dataflow
 from bytewax.connectors.kafka import KafkaSource, KafkaSink, SerializedKafkaSinkMessage
 import bytewax.operators as op
 
-from login import is_login, normalise_login
+import login
+import system
 
 brokers   = os.environ["KAFKA_BROKERS"].split(",")
 flow      = Dataflow("normalisation")
@@ -15,10 +16,13 @@ sink      = KafkaSink(brokers=brokers, topic="normalised")
 
 stream    = op.input("in", flow, source)
 events    = op.map("extract", stream, lambda x: x.value.decode("utf-8"))
-logins    = op.filter("filter_logins", events, is_login)
-processed = op.map("map", logins, normalise_login)
-out       = op.map("out", processed, lambda x: SerializedKafkaSinkMessage(key=None, value=x))
+logins    = op.filter("filter_logins", events, login.recognise)
+systems   = op.filter("filter_systems", events, system.recognise)
+logins_n  = op.map("normalise_logins", logins, login.normalise)
+systems_n = op.map("normalise_systems", systems, system.normalise)
+combined  = op.merge("merge", logins_n, systems_n)
+out       = op.map("message", combined, lambda x: SerializedKafkaSinkMessage(key=None, value=x))
 
 op.inspect("debug", out)
 
-op.output("normalised-out", out, sink)
+op.output("out", out, sink)

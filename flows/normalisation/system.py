@@ -3,7 +3,7 @@ import json
 
 def recognise(s):
     t = s.split(' ')
-    return t[2] == "login"
+    return t[2] == "system"
 
 def normalise(event):
     pattern = r'(.{19}) (\w+) (\w+) (.+)'
