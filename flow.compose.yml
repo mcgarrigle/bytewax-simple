@@ -4,6 +4,8 @@ services:
     image: ${BYTEWAX_IMAGE}
     hostname: bytewax
     command: python -m bytewax.run ${BYTEWAX_FLOW}
+    environment:
+      - KAFKA_BROKERS
     extra_hosts:
       - "broker=${IP}"
     volumes: 
