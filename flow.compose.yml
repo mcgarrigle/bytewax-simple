@@ -1,0 +1,10 @@
+---
+services:
+  bytewax:
+    image: ${BYTEWAX_IMAGE}
+    hostname: bytewax
+    command: python -m bytewax.run ${BYTEWAX_FLOW}
+    extra_hosts:
+      - "broker=${IP}"
+    volumes: 
+      - "${PWD}/flows:/home"
